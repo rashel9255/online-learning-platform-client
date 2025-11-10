@@ -3,6 +3,8 @@ import HomeLayout from "../Layouts/HomeLayout";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import ErrorPage from "../Pages/ErrorPage";
+import AllCourses from "../Pages/AllCourses";
 
 
 const router = createBrowserRouter([
@@ -12,18 +14,26 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home></Home>
+                element: <Home></Home>,
+            },
+            {
+                path: "/courses",
+                element: <AllCourses></AllCourses>
             },
             {
                 path: "/login",
-                element: <Login></Login>
+                element: <Login></Login>,
             },
             {
                 path: "/register",
-                element: <Register></Register>
-            }
-        ]
-    }
-])
+                element: <Register></Register>,
+            },
+        ],
+    },
+    {
+        path: "/*",
+        element: <ErrorPage></ErrorPage>,
+    },
+]);
 
 export default router;
