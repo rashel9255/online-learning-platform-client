@@ -1,2 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+.btn-primary {
+    background-image: linear-gradient(to bottom right, #632EE3, #9F62F2) !important;
+    color: white !important;
+    border: none !important;
+    transition: all 0.3s ease;
+  }
