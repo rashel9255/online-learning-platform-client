@@ -1,9 +1,14 @@
 import React from 'react';
+import { Outlet } from 'react-router';
+import Footer from '../Components/Footer';
+import HeaderDashboard from '../Components/HeaderDashboard';
 
 const Dashboard = () => {
     return (
         <div>
-            <h2>This is dashboard</h2>
+            <HeaderDashboard></HeaderDashboard>
+            <Outlet></Outlet>
+            <Footer></Footer>
         </div>
     );
 };

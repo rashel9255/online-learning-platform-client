@@ -6,7 +6,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import { CiLogout } from "react-icons/ci";
 
-const Header = () => {
+const HeaderDashboard = () => {
     const navigate = useNavigate();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,18 +29,18 @@ const Header = () => {
     const navLinks = (
         <>
             <li>
-                <NavLink to="/" className="hover:text-primary">
-                    Home
+                <NavLink to="my-enrolled-course" className="hover:text-primary">
+                    My Courses
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/courses" className="hover:text-primary">
-                    Courses
+                <NavLink to="my-added-course" className="hover:text-primary">
+                    My Added Course
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/dashboard" className="hover:text-primary">
-                    Dashboard
+                <NavLink to="add-course" className="hover:text-primary">
+                    Add Course
                 </NavLink>
             </li>
         </>
@@ -129,4 +129,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderDashboard;
