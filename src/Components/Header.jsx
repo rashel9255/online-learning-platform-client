@@ -1,10 +1,29 @@
 import { BookOpen, Menu, X, User, LogIn } from "lucide-react";
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router";
+import React, { use, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
 import logoImg from "../assets/patshala360-logo.png";
+import { AuthContext } from "../Context/AuthContext";
+import { toast } from "react-toastify";
 
 const Header = () => {
+    const navigate = useNavigate();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const { user, logOutUser } = use(AuthContext);
+
+    const handleLogOut = () => {
+        logOutUser()
+            .then(() => {
+                toast.success("LogOut Successfully");
+                setTimeout(() => {
+                    navigate("/login");
+                }, 1000);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     const navLinks = (
         <>
@@ -40,20 +59,28 @@ const Header = () => {
                     <ul className="hidden lg:flex items-center space-x-4">{navLinks}</ul>
 
                     {/* Desktop CTA Buttons */}
-                    <div className="hidden lg:flex items-center space-x-3">
-                        <Link to="/login">
-                            <button className="flex items-center space-x-2 px-5 py-2.5 text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 rounded-lg hover:bg-gray-50 cursor-pointer">
-                                <LogIn className="w-4 h-4" />
-                                <span>Login</span>
+                    {user ? (
+                        <div>
+                            <button onClick={handleLogOut} className="btn btn-outline mt-2">
+                                Logout
                             </button>
-                        </Link>
-                        <Link to="/register">
-                            <button className="flex items-center space-x-2 px-6 py-2.5 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
-                                <User className="w-4 h-4" />
-                                <span>Register</span>
-                            </button>
-                        </Link>
-                    </div>
+                        </div>
+                    ) : (
+                        <div className="hidden lg:flex items-center space-x-3">
+                            <Link to="/login">
+                                <button className="flex items-center space-x-2 px-5 py-2.5 text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 rounded-lg hover:bg-gray-50 cursor-pointer">
+                                    <LogIn className="w-4 h-4" />
+                                    <span>Login</span>
+                                </button>
+                            </Link>
+                            <Link to="/register">
+                                <button className="flex items-center space-x-2 px-6 py-2.5 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+                                    <User className="w-4 h-4" />
+                                    <span>Register</span>
+                                </button>
+                            </Link>
+                        </div>
+                    )}
 
                     {/* Mobile Menu Button */}
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2.5 rounded-lg hover:bg-gray-100 transition-colors duration-200" aria-label="Toggle menu">
