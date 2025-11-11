@@ -1,24 +1,98 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router";
+import React, { use, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
+import Header from "../Components/Header";
+import { toast, ToastContainer } from "react-toastify";
+import { AuthContext } from "../Context/AuthContext";
 
 const Register = () => {
-    
+    const { createUser, setUser, updateUser, signInWithGoogle } = use(AuthContext);
+    const [nameError, setNameError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "PatShala360 | Register";
+        document.title = "Pathshala360 | Register";
     }, []);
 
+    const handleRegister = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+
+        if (name.length < 5) {
+            setNameError("Name must be at least 5 characters long");
+            return;
+        } else {
+            setNameError("");
+        }
+
+        const photo = e.target.photo.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        if (password.length < 6) {
+            setPasswordError("Password must be at least 6 characters long");
+            return;
+        } else if (!/[A-Z]/.test(password)) {
+            setPasswordError("Password must contain at least one uppercase letter");
+            return;
+        } else if (!/[a-z]/.test(password)) {
+            setPasswordError("Password must contain at least one lowercase letter");
+            return;
+        } else {
+            setPasswordError("");
+        }
+
+        createUser(email, password)
+            .then((result) => {
+                const user = result.user;
+                updateUser({ displayName: name, photoURL: photo })
+                    .then(() => {
+                        setUser({ ...user, displayName: name, photoURL: photo });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setUser(user);
+                    });
+                toast.success("Registration Successful");
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+    };
+
+    const handleGoogleSignUp = () => {
+        signInWithGoogle()
+            .then(() => {
+                toast.success("Registration with Google successful!");
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            })
+            .catch((error) => {
+                console.error("Google sign-in error:", error);
+                toast.error("Failed to register with Google. Please try again.");
+            });
+    };
 
     return (
         <div>
+            <ToastContainer />
             <div className="flex justify-center lg:min-h-screen items-center mt-4">
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl py-5">
                     <h2 className="font-semibold text-2xl text-center">Register your account</h2>
-                    <form className="card-body">
+                    <form onSubmit={handleRegister} className="card-body">
                         <fieldset className="fieldset">
                             {/* Name  */}
                             <label className="label">Name</label>
                             <input name="name" type="text" className="input" placeholder="Name" required />
+
+                            {nameError && <p className="text-xs text-error">{nameError}</p>}
 
                             {/* Photo URl  */}
                             <label className="label">Photo URl </label>
@@ -32,6 +106,8 @@ const Register = () => {
                             <label className="label">Password</label>
                             <input name="password" type="password" className="input" placeholder="Password" required />
 
+                            {passwordError && <p className="text-xs text-error">{passwordError} </p>}
+
                             <button type="submit" className="btn btn-neutral mt-4">
                                 Register
                             </button>
@@ -43,7 +119,7 @@ const Register = () => {
                             </p>
                         </fieldset>
                     </form>
-                    <button className="btn mx-6 bg-white text-black border-[#e5e5e5]">
+                    <button onClick={handleGoogleSignUp} className="btn mx-6 bg-white text-black border-[#e5e5e5]">
                         <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                             <g>
                                 <path d="m0 0H512V512H0" fill="#fff"></path>
