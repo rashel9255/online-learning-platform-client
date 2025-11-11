@@ -33,7 +33,7 @@ const Header = () => {
                     {/* Logo Section */}
                     <div className="flex items-center space-x-2 group cursor-pointer">
                         <img src={logoImg} alt="patshala360 logo" className="w-20 h-20 object-contain" />
-                        <span className="text-2xl lg:text-3xl font-bold bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">PatShala360</span>
+                        <span className="text-2xl lg:text-3xl font-bold bg-linear-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">PathShala360</span>
                     </div>
 
                     {/* Desktop Navigation */}
