@@ -19,8 +19,8 @@ const Header = () => {
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/my-courses" className="hover:text-primary">
-                    My Courses
+                <NavLink to="/dashboard" className="hover:text-primary">
+                    Dashboard
                 </NavLink>
             </li>
         </>
@@ -64,9 +64,9 @@ const Header = () => {
                 {/* Mobile Menu */}
                 <div className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? "max-h-96 opacity-100 pb-6" : "max-h-0 opacity-0"}`}>
                     <ul className="space-y-2 pt-4">{navLinks}</ul>
-                    <div className="pt-4 space-y-2 border-t border-gray-100 mt-4">
+                    <div className="pt-4 space-y-4 border-t border-gray-100 mt-4">
                         <Link to="/login">
-                            <button className="w-full flex items-center justify-center space-x-2 px-4 py-3 text-gray-700 border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200 font-medium cursor-pointer">
+                            <button className="w-full flex items-center justify-center space-x-2 px-4 py-3 text-gray-700 border-2 border-gray-200 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all duration-200 font-medium cursor-pointer mb-2">
                                 <LogIn className="w-4 h-4" />
                                 <span>Login</span>
                             </button>
