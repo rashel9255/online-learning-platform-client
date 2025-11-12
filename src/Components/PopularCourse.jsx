@@ -1,59 +1,64 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const PopularCourse = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [imageErrors, setImageErrors] = useState({});
 
-    // Fetch popular courses on component mount
     useEffect(() => {
         fetchPopularCourses();
     }, []);
 
-    // Fetch function using Axios
     const fetchPopularCourses = async () => {
         try {
             setLoading(true);
-            setError(null);
-
-            // Make GET request to the API
-            const response = await axios.get("http://localhost:3000/courses/popular-courses");
-
-            // Set the courses data
-            setCourses(response.data);
-            setLoading(false);
+            const res = await axios.get("http://localhost:3000/courses/popular-courses");
+            setCourses(res.data || []);
         } catch (err) {
-            // Handle errors
-            setError(err.response?.data?.message || err.message);
+            setError(err.response?.data?.message || err.message || "Unknown error");
+        } finally {
             setLoading(false);
-            console.error("Error fetching popular courses:", err);
         }
     };
 
-    // Loading state
+    const handleImageError = (id) => {
+        setImageErrors((prev) => ({ ...prev, [id]: true }));
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, y: 50, scale: 0.98 },
+        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45 } },
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
                     <p className="mt-4 text-gray-600">Loading popular courses...</p>
-                </div>
+                </motion.div>
             </div>
         );
     }
 
-    // Error state
     if (error) {
         return (
             <div className="flex items-center justify-center min-h-screen p-4">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
+                <motion.div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
                     <h2 className="text-lg font-semibold text-red-900 mb-2">Error Loading Courses</h2>
                     <p className="text-red-700 mb-4">{error}</p>
                     <button onClick={fetchPopularCourses} className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700">
                         Try Again
                     </button>
-                </div>
+                </motion.div>
             </div>
         );
     }
@@ -61,43 +66,95 @@ const PopularCourse = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="mb-8 text-center">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">Popular Courses</h1>
-                    <p>Explore all of our popular courses </p>
-                </div>
+                <motion.div className="mb-12 text-center" initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Popular Courses</h1>
+                    <p className="text-lg text-gray-600">Explore all of our popular courses</p>
+                    <motion.div
+                        className="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded-full"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: 96 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                    />
+                </motion.div>
 
-                {/* Courses Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {courses.map((course) => (
-                        <div key={course._id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
-                            {/* Course Image */}
-                            <img src={course.thumbnail || "/placeholder-course.jpg"} alt={course.title} className="w-full h-48 object-cover" />
+                <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                    {courses.map((course, index) => (
+                        <motion.div
+                            key={course._id || index}
+                            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full"
+                            variants={cardVariants}
+                            whileHover={{ y: -8, scale: 1.01 }}
+                            transition={{ duration: 0.25 }}
+                        >
+                            {/* ========== UPDATED IMAGE BLOCK ========== */}
+                            {/* 
+                Approach:
+                - Image (z-0) is the base.
+                - A tint overlay (z-10) sits ABOVE the image but uses mix-blend / opacity
+                  so image remains visible while tinted.
+                - The label (z-20) sits on top for the "View Details" text.
+              */}
+                            <div className="relative overflow-hidden h-48 group">
+                                {/* Image or placeholder */}
+                                {!imageErrors[course._id] && course.thumbnail ? (
+                                    <img
+                                        src={course.thumbnail}
+                                        alt={course.title}
+                                        onError={() => handleImageError(course._id)}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 relative z-0"
+                                        // ensure image displays as soon as it's loaded; if still not visible, check console for 404/CORS
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-400 to-purple-500">
+                                        <div className="text-center text-white">
+                                            <svg className="w-16 h-16 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                                />
+                                            </svg>
+                                            <p className="text-sm opacity-75">Course Image</p>
+                                        </div>
+                                    </div>
+                                )}
 
-                            {/* Course Content */}
+                                {/* Tint overlay ABOVE the image but using blend + opacity so image stays visible */}
+                                <div className="absolute inset-0 z-10 pointer-events-none">
+                                    <div className="w-full h-full bg-blue-600 opacity-0 group-hover:opacity-60 transition-opacity duration-300 mix-blend-multiply" />
+                                </div>
+
+                                {/* Label on top */}
+                                <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+                                    <span className="text-white font-semibold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Details</span>
+                                </div>
+                            </div>
+                            {/* ========== END UPDATED IMAGE BLOCK ========== */}
+
                             <div className="p-6 flex flex-col grow">
-                                <h3 className="text-xl font-semibold mb-2 h-14">{course.title}</h3>
-                                <p className="text-gray-600 text-sm mb-4 h-20">{course.description}</p>
+                                <h3 className="text-xl font-semibold mb-2 h-14 line-clamp-2">{course.title}</h3>
+                                <p className="text-gray-600 text-sm mb-4 h-20 line-clamp-3">{course.description}</p>
 
-                                {/* Course Info */}
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-sm text-gray-600">{course.studentsEnrolled || 0} students enrolled</span>
+                                    <span className="text-sm text-gray-600">{course.studentsEnrolled?.toLocaleString() || 0} students enrolled</span>
                                     {course.rating && <span className="text-sm text-yellow-500">⭐ {course.rating}</span>}
                                 </div>
 
-                                {/* Instructor */}
-                                {course.instructor && <p className="text-sm text-gray-600 mb-4 min-h-6">By {course.instructor.name}</p>}
+                                {course.instructor && <p className="text-sm text-gray-600 mb-4">By {course.instructor.name}</p>}
 
-                                {/* Price and Button */}
                                 <div className="flex items-center justify-between mt-auto">
                                     <span className="text-2xl font-bold text-blue-600">${course.price}</span>
-                                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 cursor-pointer">Enroll Now</button>
+                                    <motion.button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                        Enroll Now
+                                    </motion.button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
-                {/* Empty State */}
                 {courses.length === 0 && (
                     <div className="text-center py-12">
                         <p className="text-gray-600">No popular courses found</p>
@@ -106,5 +163,6 @@ const PopularCourse = () => {
             </div>
         </div>
     );
-}
+};
+
 export default PopularCourse;
