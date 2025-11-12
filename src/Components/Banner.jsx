@@ -1,6 +1,7 @@
 // BannerWithCourses.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Users, Star } from "lucide-react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
