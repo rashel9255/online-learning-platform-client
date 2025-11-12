@@ -1,12 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function CourseDetails() {
     const { id } = useParams();
     const [course, setCourse] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [isEnrolled, setIsEnrolled] = useState(false);
+
+    const handleEnroll = () => {
+        if (!user) {
+            // if not logged in, go to login (user can be returned to this page by your PrivateRoute/state handling)
+            navigate("/login", { state: { from: `/courses/${id}` } });
+            return;
+        }
+
+        if (!course) return;
+
+        const newEnrollment = {
+            courseId: course._id || id,
+            userId: user.uid,
+            userEmail: user.email,
+            title: course.title,
+            instructor: course.instructor,
+            thumbnail: course.thumbnail,
+            price: course.price,
+        };
+
+        axios
+            .post("http://localhost:3000/enrolled-courses", newEnrollment)
+            .then((res) => {
+                if (res.data.insertedId || res.status === 201) {
+                    toast.success("Successfully enrolled in the course!");
+                    setIsEnrolled(true);
+                } else {
+                    // Some backends may return the new resource directly
+                    setIsEnrolled(true);
+                    toast.success("Successfully enrolled in the course!");
+                }
+            })
+            .catch((err) => {
+                console.error("Error enrolling in course:", err);
+                toast.error("Failed to enroll in the course.");
+            });
+    };
 
     useEffect(() => {
         if (!id) return;
@@ -23,6 +66,26 @@ export default function CourseDetails() {
             })
             .finally(() => setLoading(false));
     }, [id]);
+
+    // check whether current user already enrolled
+    useEffect(() => {
+        if (!user || !id) return;
+        // backend expected to support query by userId and courseId
+        axios
+            .get(`http://localhost:3000/enrolled-courses?userId=${user.uid}&courseId=${id}`)
+            .then((res) => {
+                // if the endpoint returns an array of enrollments
+                if (Array.isArray(res.data) && res.data.length > 0) {
+                    setIsEnrolled(true);
+                } else if (res.data && (res.data.courseId || res.data.courseId === id)) {
+                    // handle single object response
+                    setIsEnrolled(true);
+                }
+            })
+            .catch(() => {
+                // silent fail — user is not enrolled or endpoint unsupported
+            });
+    }, [user, id]);
 
     if (loading)
         return (
@@ -50,6 +113,7 @@ export default function CourseDetails() {
 
     return (
         <div className="min-h-screen bg-gray-50 py-8">
+            <ToastContainer />
             <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
                 <div>
                     <div className=" bg-gray-100 flex items-center justify-center p-6">
@@ -107,7 +171,9 @@ export default function CourseDetails() {
                         </div>
 
                         <div className="flex gap-3 mt-6">
-                            <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Enroll Now</button>
+                            <button onClick={handleEnroll} className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                Enroll Now
+                            </button>
                             <Link to="/courses" className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">
                                 Back
                             </Link>

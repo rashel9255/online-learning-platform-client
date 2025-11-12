@@ -1,6 +1,5 @@
 import React, { use, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import Header from "../Components/Header";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../Context/AuthContext";
