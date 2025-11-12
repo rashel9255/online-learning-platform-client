@@ -46,7 +46,6 @@ const TopInstructors = () => {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             className="bg-base-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
                         >
-                            {console.log(ins)};
                             <div className="relative overflow-hidden">
                                 <img src={ins.avatar} alt={ins.name} className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500" />
                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">

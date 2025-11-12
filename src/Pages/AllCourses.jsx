@@ -115,10 +115,9 @@ export default function AllCourses() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredCourses.map((course) => (
                             <div key={course._id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
-                                {console.log(course.thumbnail)}
                                 {/* Course Image */}
-                                <div className="relative h-48 bg-linear-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                                    <img src={course.thumbnail} alt="" />
+                                <div className="relative h-48 flex items-center justify-center">
+                                    <img src={course.thumbnail} alt="" className="h-full" />
                                     {course.isBestseller && <span className="absolute top-2 left-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded">BESTSELLER</span>}
                                     {course.isNew && <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</span>}
                                 </div>
@@ -149,12 +148,12 @@ export default function AllCourses() {
                                                 </span>
                                             ))}
                                         </div>
-                                        <span className="ml-2 text-xs text-gray-500">({course.totalRatings.toLocaleString()})</span>
+                                        <span className="ml-2 text-xs text-gray-500">({(course.totalRatings || 0).toLocaleString()})</span>
                                     </div>
 
                                     {/* Stats */}
                                     <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
-                                        <span>👥 {course.studentsEnrolled.toLocaleString()} students</span>
+                                        <span>👥 {(course.studentsEnrolled || 0).toLocaleString()} students</span>
                                         <span>⏱️ {course.duration}</span>
                                     </div>
 
