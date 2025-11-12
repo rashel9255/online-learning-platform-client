@@ -29,17 +29,17 @@ const Header = () => {
     const navLinks = (
         <>
             <li>
-                <NavLink to="/" className="hover:text-primary">
+                <NavLink to="/" className={({ isActive }) => (isActive ? "text-blue-600 font-bold border-b-2 border-blue-600 pb-1" : "hover:text-primary")}>
                     Home
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/courses" className="hover:text-primary">
+                <NavLink to="/courses" className={({ isActive }) => (isActive ? "text-blue-600 font-bold border-b-2 border-blue-600 pb-1" : "hover:text-primary")}>
                     Courses
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/dashboard" className="hover:text-primary">
+                <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "text-blue-600 font-bold border-b-2 border-blue-600 pb-1" : "hover:text-primary")}>
                     Dashboard
                 </NavLink>
             </li>

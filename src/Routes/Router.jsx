@@ -5,6 +5,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import ErrorPage from "../Pages/ErrorPage";
 import AllCourses from "../Pages/AllCourses";
+import CourseDetails from "../Pages/CourseDetails";
 import Dashboard from "../Layouts/Dashboard";
 import MyEnrolledCourse from "../Pages/MyEnrolledCourse";
 import MyAddedCourse from "../Pages/MyAddedCourse";
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: "/courses",
                 element: <AllCourses></AllCourses>,
+            },
+            {
+                path: "/courses/:id",
+                element: <CourseDetails></CourseDetails>,
             },
             {
                 path: "/login",

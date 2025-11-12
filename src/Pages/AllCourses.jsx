@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 import axios from "axios";
 
 export default function AllCourses() {
@@ -27,7 +28,7 @@ export default function AllCourses() {
     };
 
     const filteredCourses = courses.filter((course) => {
-        const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) || course.description.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesFilter = filter === "all" || course.category === filter;
         return matchesSearch && matchesFilter;
     });
@@ -113,7 +114,6 @@ export default function AllCourses() {
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredCourses.map((course) => (
-                            
                             <div key={course._id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
                                 {console.log(course.thumbnail)}
                                 {/* Course Image */}
@@ -179,7 +179,9 @@ export default function AllCourses() {
                                             <span className="text-2xl font-bold text-gray-900">${course.price}</span>
                                             {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 line-through">${course.originalPrice}</span>}
                                         </div>
-                                        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold">Enroll</button>
+                                        <Link to={`/courses/${course._id}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold">
+                                            Details
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

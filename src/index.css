@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+a.active {
+  @apply text-primary font-bold;
+}
 
 .btn-primary {
     background-image: linear-gradient(to bottom right, #632EE3, #9F62F2) !important;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const PopularCourse = () => {
     const [courses, setCourses] = useState([]);
@@ -88,14 +89,6 @@ const PopularCourse = () => {
                             whileHover={{ y: -8, scale: 1.01 }}
                             transition={{ duration: 0.25 }}
                         >
-                            {/* ========== UPDATED IMAGE BLOCK ========== */}
-                            {/* 
-                Approach:
-                - Image (z-0) is the base.
-                - A tint overlay (z-10) sits ABOVE the image but uses mix-blend / opacity
-                  so image remains visible while tinted.
-                - The label (z-20) sits on top for the "View Details" text.
-              */}
                             <div className="relative overflow-hidden h-48 group">
                                 {/* Image or placeholder */}
                                 {!imageErrors[course._id] && course.thumbnail ? (
@@ -104,7 +97,6 @@ const PopularCourse = () => {
                                         alt={course.title}
                                         onError={() => handleImageError(course._id)}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 relative z-0"
-                                        // ensure image displays as soon as it's loaded; if still not visible, check console for 404/CORS
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-400 to-purple-500">
@@ -122,7 +114,6 @@ const PopularCourse = () => {
                                     </div>
                                 )}
 
-                                {/* Tint overlay ABOVE the image but using blend + opacity so image stays visible */}
                                 <div className="absolute inset-0 z-10 pointer-events-none">
                                     <div className="w-full h-full bg-blue-600 opacity-0 group-hover:opacity-60 transition-opacity duration-300 mix-blend-multiply" />
                                 </div>
@@ -132,7 +123,6 @@ const PopularCourse = () => {
                                     <span className="text-white font-semibold text-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">View Details</span>
                                 </div>
                             </div>
-                            {/* ========== END UPDATED IMAGE BLOCK ========== */}
 
                             <div className="p-6 flex flex-col grow">
                                 <h3 className="text-xl font-semibold mb-2 h-14 line-clamp-2">{course.title}</h3>
@@ -145,11 +135,14 @@ const PopularCourse = () => {
 
                                 {course.instructor && <p className="text-sm text-gray-600 mb-4">By {course.instructor.name}</p>}
 
-                                <div className="flex items-center justify-between mt-auto">
-                                    <span className="text-2xl font-bold text-blue-600">${course.price}</span>
-                                    <motion.button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                        Enroll Now
-                                    </motion.button>
+                                <div className="flex items-center justify-between mt-auto pt-3 border-t">
+                                    <div>
+                                        <span className="text-2xl font-bold text-gray-900">${course.price}</span>
+                                        {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 line-through">${course.originalPrice}</span>}
+                                    </div>
+                                    <Link to={`/courses/${course._id}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold">
+                                        Details
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>
