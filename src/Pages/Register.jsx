@@ -61,8 +61,15 @@ const Register = () => {
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
+                let errorMessage = "Registration Failed. Please try again.";
+                if (errorCode === "auth/email-already-in-use") {
+                    errorMessage = "This email is already in use. Please try a different email.";
+                } else if (errorCode === "auth/weak-password") {
+                    errorMessage = "The password is too weak. Please choose a stronger password.";
+                } else if (errorCode === "auth/invalid-email") {
+                    errorMessage = "The email address is not valid. Please enter a valid email.";
+                }
+                toast.error(errorMessage);
             });
     };
 

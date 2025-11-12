@@ -33,6 +33,7 @@ const Login = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 setError(errorCode);
+                toast.error("Login Failed",error);
             });
     };
 
