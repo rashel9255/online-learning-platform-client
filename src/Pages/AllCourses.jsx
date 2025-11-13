@@ -10,6 +10,10 @@ const AllCourses = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
+        document.title = "PathShala360 = All Courses";
+    }, []);
+
+    useEffect(() => {
         fetchCourses();
     }, []);
 

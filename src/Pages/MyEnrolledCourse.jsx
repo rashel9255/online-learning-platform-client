@@ -15,6 +15,10 @@ const MyEnrolledCourse = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        document.title = "My Enrolled Courses - PathShala360";
+    }, []);
+
+    useEffect(() => {
         if (!user) {
             setLoading(false);
             setEnrollments([]);

@@ -21,6 +21,12 @@ const UpdateCourse = () => {
 
     // Fetch course data and prefill form
     useEffect(() => {
+        if (formData.title) {
+            document.title = `Update: ${formData.title} - PathShala360`;
+        }
+    }, [formData.title]);
+
+    useEffect(() => {
         if (id) {
             setLoading(true);
             axios

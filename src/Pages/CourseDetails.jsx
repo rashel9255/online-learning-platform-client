@@ -73,6 +73,12 @@ export default function CourseDetails() {
     };
 
     useEffect(() => {
+        if (course?.title) {
+            document.title = `${course.title} - PathShala360`;
+        }
+    }, [course]);
+
+    useEffect(() => {
         if (!id) return;
         setLoading(true);
         axios

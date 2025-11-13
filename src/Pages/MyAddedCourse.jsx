@@ -14,6 +14,10 @@ const MyCourses = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        document.title = "My Added Courses - PathShala360";
+    }, []);
+
+    useEffect(() => {
         if (user?.email) {
             setLoading(true);
             axios
