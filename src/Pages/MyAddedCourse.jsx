@@ -189,9 +189,9 @@ const MyCourses = () => {
 
                                             <div className="flex gap-2">
                                                 <button
-                                                    onClick={() => alert("Edit functionality - Course ID: " + course._id)}
+                                                    onClick={() => navigate(`/dashboard/edit-course/${course._id}`)}
                                                     className="p-2.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-all hover:scale-105 active:scale-95"
-                                                    title="Edit course"
+                                                    title="Update course"
                                                 >
                                                     <Edit className="h-5 w-5" />
                                                 </button>
