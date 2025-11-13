@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -15,7 +15,22 @@ const AddCourse = () => {
         category: "",
         description: "",
         isFeatured: false,
+        instructorName: "",
+        instructorEmail: "",
+        instructorPhoto: "",
     });
+
+    // Auto-fill instructor details from Firebase when user is available
+    useEffect(() => {
+        if (user) {
+            setFormData((prev) => ({
+                ...prev,
+                instructorName: user.displayName || "",
+                instructorEmail: user.email || "",
+                instructorPhoto: user.photoURL || "https://i.ibb.co/8z7zjNY/default-avatar.png",
+            }));
+        }
+    }, [user]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -29,12 +44,12 @@ const AddCourse = () => {
         e.preventDefault();
 
         try {
-            // 🧠 Instructor info automatically from user
+            // 🧠 Instructor info from form data (auto-filled from Firebase)
             const instructorInfo = {
-                name: user?.displayName || "Unknown Instructor",
+                name: formData.instructorName || user?.displayName || "Unknown Instructor",
                 bio: null,
-                avatar: user?.photoURL || "https://i.ibb.co/8z7zjNY/default-avatar.png",
-                email: user?.email || "not_provided",
+                avatar: formData.instructorPhoto || user?.photoURL || "https://i.ibb.co/8z7zjNY/default-avatar.png",
+                email: formData.instructorEmail || user?.email || "not_provided",
                 rating: null
             };
 
@@ -80,6 +95,9 @@ const AddCourse = () => {
                     category: "",
                     description: "",
                     isFeatured: false,
+                    instructorName: user?.displayName || "",
+                    instructorEmail: user?.email || "",
+                    instructorPhoto: user?.photoURL || "https://i.ibb.co/8z7zjNY/default-avatar.png",
                 });
             }
         } catch (error) {
@@ -93,8 +111,55 @@ const AddCourse = () => {
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
                 <h2 className="text-2xl md:text-3xl font-bold text-center text-primary-gradient mb-6">Add New Course</h2>
 
-
                 <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Instructor Details Section */}
+                    <div className="bg-linear-to-r from-blue-50 to-indigo-50 p-5 rounded-xl border-2 border-blue-100">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <span className="text-blue-600">👤</span> Instructor Details
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Instructor Name */}
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1 text-sm">Instructor Name</label>
+                                <input
+                                    type="text"
+                                    name="instructorName"
+                                    value={formData.instructorName}
+                                    onChange={handleChange}
+                                    placeholder="Your name"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                                    readOnly
+                                />
+                            </div>
+
+                            {/* Instructor Email */}
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1 text-sm">Instructor Email</label>
+                                <input
+                                    type="email"
+                                    name="instructorEmail"
+                                    value={formData.instructorEmail}
+                                    onChange={handleChange}
+                                    placeholder="your@email.com"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                                    readOnly
+                                />
+                            </div>
+                            {/* Instructor Photo */}
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-1 text-sm">Instructor Photo URL</label>
+                                <input
+                                    type="url"
+                                    name="instructorPhoto"
+                                    value={formData.instructorPhoto}
+                                    onChange={handleChange}
+                                    placeholder="https://example.com/photo.jpg"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                                    readOnly
+                                />
+                            </div>
+                        </div>
+                    </div>
                     {/* Title */}
                     <div>
                         <label className="block text-gray-700 font-medium mb-1">Course Title</label>

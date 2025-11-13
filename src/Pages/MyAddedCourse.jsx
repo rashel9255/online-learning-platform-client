@@ -57,6 +57,7 @@ const MyCourses = () => {
                         showConfirmButton: false,
                     });
                 } catch (err) {
+                    console.error("Delete error:", err);
                     Swal.fire({
                         title: "Failed!",
                         text: "Something went wrong while deleting the course.",
