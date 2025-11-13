@@ -2,7 +2,7 @@
 
 This is the client-side application for **PathShala360**, a modern and feature-rich online learning platform built with React, Tailwind CSS, and Firebase.
 
-**Live Site URL:** [https://pathshala360-assignment.web.app/](https://pathshala360-assignment.web.app/)
+**Live Site URL:** [https://pathshala360-ebc1b.web.app/](https://pathshala360-ebc1b.web.app/)
 
 ## Website Features
 
