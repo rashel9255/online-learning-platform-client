@@ -28,7 +28,7 @@ const MyEnrolledCourse = () => {
         // Try both userId and userEmail for compatibility
         const queryParam = user.uid ? `userId=${user.uid}` : `userEmail=${user.email}`;
         axios
-            .get(`http://localhost:3000/enrolled-courses?${queryParam}`)
+            .get(`https://online-learning-platform-server-alpha.vercel.app/enrolled-courses?${queryParam}`)
             .then((res) => {
                 const data = Array.isArray(res.data) ? res.data : [];
                 setEnrollments(data);
@@ -59,7 +59,7 @@ const MyEnrolledCourse = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:3000/enrolled-courses/${enrollmentId}`);
+                    await axios.delete(`https://online-learning-platform-server-alpha.vercel.app/enrolled-courses/${enrollmentId}`);
                     setEnrollments(enrollments.filter((enrollment) => enrollment._id !== enrollmentId));
                     toast.success("Course removed from your enrolled courses!");
                 } catch (err) {

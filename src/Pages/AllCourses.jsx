@@ -20,7 +20,7 @@ const AllCourses = () => {
     const fetchCourses = async () => {
         try {
             setLoading(true);
-            const response = await axios.get("http://localhost:3000/courses");
+            const response = await axios.get("https://online-learning-platform-server-alpha.vercel.app/courses");
             setCourses(response.data);
             setError(null);
         } catch (err) {
@@ -70,7 +70,7 @@ const AllCourses = () => {
             {/* Header */}
             <div className="bg-white dark:bg-gray-800 text-center shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">Explore Courses</h1>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-primary-gradient mb-2">Explore Courses</h1>
                     <p className="text-gray-600 dark:text-gray-300">Discover all amazing courses to boost your skills</p>
                 </div>
             </div>

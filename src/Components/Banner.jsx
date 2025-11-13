@@ -22,7 +22,7 @@ export default function BannerWithCourses() {
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get("http://localhost:3000/courses/popular-courses");
+            const response = await axios.get("https://online-learning-platform-server-alpha.vercel.app/courses/popular-courses");
             setCourses(response.data);
             setLoading(false);
         } catch (err) {
@@ -195,7 +195,6 @@ export default function BannerWithCourses() {
                                             </div>
                                         )}
                                     </motion.div>
-
                                 </div>
 
                                 {/* Right Image/Card */}
@@ -209,7 +208,6 @@ export default function BannerWithCourses() {
                                                     <BookOpen className="w-24 h-24 text-white opacity-50" />
                                                 </div>
                                             )}
-
                                         </div>
                                     </div>
                                 </motion.div>

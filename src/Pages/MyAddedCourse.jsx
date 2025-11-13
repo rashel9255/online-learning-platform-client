@@ -21,7 +21,7 @@ const MyCourses = () => {
         if (user?.email) {
             setLoading(true);
             axios
-                .get(`http://localhost:3000/courses/user/${user.email}`)
+                .get(`https://online-learning-platform-server-alpha.vercel.app/courses/user/${user.email}`)
                 .then((res) => {
                     setCourses(res.data);
                     setLoading(false);
@@ -50,7 +50,7 @@ const MyCourses = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:3000/courses/${id}`);
+                    await axios.delete(`https://online-learning-platform-server-alpha.vercel.app/courses/${id}`);
                     setCourses(courses.filter((course) => course._id !== id));
 
                     Swal.fire({

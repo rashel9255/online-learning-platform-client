@@ -54,7 +54,7 @@ const AddCourse = () => {
                 bio: null,
                 avatar: formData.instructorPhoto || user?.photoURL || "https://i.ibb.co/8z7zjNY/default-avatar.png",
                 email: formData.instructorEmail || user?.email || "not_provided",
-                rating: null
+                rating: null,
             };
 
             const newCourse = {
@@ -87,7 +87,7 @@ const AddCourse = () => {
                 discount: null,
             };
 
-            const res = await axios.post("http://localhost:3000/courses", newCourse);
+            const res = await axios.post("https://online-learning-platform-server-alpha.vercel.app/courses", newCourse);
 
             if (res.data.insertedId) {
                 toast.success("🎉 Course Added Successfully!");

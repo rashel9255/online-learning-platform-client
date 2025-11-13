@@ -43,7 +43,7 @@ export default function CourseDetails() {
         };
 
         axios
-            .post("http://localhost:3000/enrolled-courses", newEnrollment)
+            .post("https://online-learning-platform-server-alpha.vercel.app/enrolled-courses", newEnrollment)
             .then((res) => {
                 if (res.data.insertedId || res.status === 201) {
                     toast.success("Successfully enrolled in the course!");
@@ -82,7 +82,7 @@ export default function CourseDetails() {
         if (!id) return;
         setLoading(true);
         axios
-            .get(`http://localhost:3000/courses/${id}`)
+            .get(`https://online-learning-platform-server-alpha.vercel.app/courses/${id}`)
             .then((res) => {
                 setCourse(res.data);
                 setError(null);
@@ -100,7 +100,7 @@ export default function CourseDetails() {
         // backend expected to support query by userId/userEmail and courseId
         const queryParam = user.uid ? `userId=${user.uid}&courseId=${id}` : `userEmail=${user.email}&courseId=${id}`;
         axios
-            .get(`http://localhost:3000/enrolled-courses?${queryParam}`)
+            .get(`https://online-learning-platform-server-alpha.vercel.app/enrolled-courses?${queryParam}`)
             .then((res) => {
                 // if the endpoint returns an array of enrollments
                 if (Array.isArray(res.data) && res.data.length > 0) {
@@ -207,11 +207,7 @@ export default function CourseDetails() {
                                 <button
                                     onClick={handleEnroll}
                                     disabled={isEnrolling}
-                                    className={`${
-                                        isEnrolling
-                                            ? "bg-gray-400 cursor-not-allowed"
-                                            : "bg-green-600 hover:bg-green-700"
-                                    } text-white px-4 py-2 rounded-lg transition-colors`}
+                                    className={`${isEnrolling ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"} text-white px-4 py-2 rounded-lg transition-colors`}
                                 >
                                     {isEnrolling ? "Enrolling..." : "Enroll Now"}
                                 </button>

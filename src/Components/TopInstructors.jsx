@@ -10,7 +10,7 @@ const TopInstructors = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/instructors/top")
+            .get("https://online-learning-platform-server-alpha.vercel.app/instructors/top")
             .then((res) => {
                 setInstructors(res.data);
                 setLoading(false);
@@ -28,17 +28,16 @@ const TopInstructors = () => {
     return (
         <section className="py-20 bg-base-100">
             <div className="max-w-6xl mx-auto px-4 text-center">
-                <motion.h2 initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-3xl md:text-4xl font-bold mb-4">
-                    Meet Our <span className="text-primary">Top Instructors</span>
+                <motion.h2 initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-3xl md:text-4xl font-bold mb-4 text-primary-gradient">
+                    Meet Our Top Instructors
                 </motion.h2>
 
-                <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-gray-600 max-w-2xl mx-auto mb-10">
+                <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-gray-500 max-w-2xl mx-auto mb-10">
                     Learn from the best educators who help you achieve your learning goals.
                 </motion.p>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {instructors.map((ins, index) => (
-                        
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 40 }}
@@ -58,7 +57,7 @@ const TopInstructors = () => {
                                 <p className="text-primary font-medium">{ins.bio}</p>
                                 <div className="flex items-center justify-center mt-3">
                                     <Star className="w-5 h-5 text-yellow-400" />
-                                    <span className="ml-1 text-gray-700 font-medium">{ins.rating.toFixed(1)}</span>
+                                    <span className="ml-1 text-gray-500 font-medium">{ins.rating.toFixed(1)}</span>
                                 </div>
                             </div>
                         </motion.div>

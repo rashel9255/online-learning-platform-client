@@ -30,7 +30,7 @@ const UpdateCourse = () => {
         if (id) {
             setLoading(true);
             axios
-                .get(`http://localhost:3000/courses/${id}`)
+                .get(`https://online-learning-platform-server-alpha.vercel.app/courses/${id}`)
                 .then((res) => {
                     const course = res.data;
                     setFormData({
@@ -75,7 +75,7 @@ const UpdateCourse = () => {
                 isFeatured: formData.isFeatured,
             };
 
-            const res = await axios.patch(`http://localhost:3000/courses/${id}`, updatedCourse);
+            const res = await axios.patch(`https://online-learning-platform-server-alpha.vercel.app/courses/${id}`, updatedCourse);
 
             if (res.data.modifiedCount > 0 || res.data.matchedCount > 0) {
                 toast.success("🎉 Course Updated Successfully!");
@@ -111,7 +111,7 @@ const UpdateCourse = () => {
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Title */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Course Title</label>
+                        <label className="block text-gray-500 font-medium mb-1 ">Course Title</label>
                         <input
                             type="text"
                             name="title"
@@ -125,7 +125,7 @@ const UpdateCourse = () => {
 
                     {/* Image */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Image URL</label>
+                        <label className="block text-gray-500 font-medium mb-1">Image URL</label>
                         <input
                             type="url"
                             name="image"
@@ -140,7 +140,7 @@ const UpdateCourse = () => {
                     {/* Price & Duration */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-gray-700 font-medium mb-1">Price (৳)</label>
+                            <label className="block text-gray-500 font-medium mb-1">Price (৳)</label>
                             <input
                                 type="number"
                                 name="price"
@@ -153,7 +153,7 @@ const UpdateCourse = () => {
                         </div>
 
                         <div>
-                            <label className="block text-gray-700 font-medium mb-1">Duration</label>
+                            <label className="block text-gray-500 font-medium mb-1">Duration</label>
                             <input
                                 type="text"
                                 name="duration"
@@ -168,12 +168,12 @@ const UpdateCourse = () => {
 
                     {/* Category */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Category</label>
+                        <label className="block text-gray-500 font-medium mb-1">Category</label>
                         <select
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white dark:text-black"
                             required
                         >
                             <option value="">Select a category</option>
@@ -191,7 +191,7 @@ const UpdateCourse = () => {
 
                     {/* Description */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Description</label>
+                        <label className="block text-gray-500 font-medium mb-1">Description</label>
                         <textarea
                             name="description"
                             value={formData.description}
@@ -206,7 +206,7 @@ const UpdateCourse = () => {
                     {/* Featured */}
                     <div className="flex items-center gap-2">
                         <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-sky-500" />
-                        <label className="text-gray-700 font-medium">Featured Course</label>
+                        <label className="text-gray-500 font-medium">Featured Course</label>
                     </div>
 
                     {/* Submit Button */}

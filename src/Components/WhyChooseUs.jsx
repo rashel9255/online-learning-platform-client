@@ -34,8 +34,8 @@ const WhyChooseUs = () => {
     return (
         <section className="py-20 bg-base-200">
             <div className="max-w-6xl mx-auto px-4 text-center">
-                <motion.h2 initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-3xl md:text-4xl font-bold text-gray-600 mb-10 dark:text-white">
-                    Why <span className="text-primary">Choose Us</span>
+                <motion.h2 initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="text-3xl md:text-4xl font-bold text-primary-gradient mb-10 dark:text-white">
+                    Why Choose Us
                 </motion.h2>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -49,7 +49,7 @@ const WhyChooseUs = () => {
                         >
                             <div className="flex justify-center mb-4">{feature.icon}</div>
                             <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                            <p className="text-gray-600">{feature.desc}</p>
+                            <p className="text-gray-500">{feature.desc}</p>
                         </motion.div>
                     ))}
                 </div>

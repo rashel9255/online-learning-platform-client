@@ -17,7 +17,7 @@ const PopularCourse = () => {
     const fetchPopularCourses = async () => {
         try {
             setLoading(true);
-            const res = await axios.get("http://localhost:3000/courses/popular-courses");
+            const res = await axios.get("https://online-learning-platform-server-alpha.vercel.app/courses/popular-courses");
             setCourses(res.data || []);
         } catch (err) {
             setError(err.response?.data?.message || err.message || "Unknown error");
