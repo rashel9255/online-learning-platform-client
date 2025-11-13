@@ -26,9 +26,10 @@ const MyEnrolledCourse = () => {
         }
         setLoading(true);
         // Try both userId and userEmail for compatibility
-        const queryParam = user.uid ? `userId=${user.uid}` : `userEmail=${user.email}`;
+        const queryParam = user.uid ? `userId=${user.uid}` : `userEmail=${user.email}`
         axios
             .get(`https://online-learning-platform-server-alpha.vercel.app/enrolled-courses?${queryParam}`)
+            // https://online-learning-platform-server-alpha.vercel.app
             .then((res) => {
                 const data = Array.isArray(res.data) ? res.data : [];
                 setEnrollments(data);
@@ -164,7 +165,6 @@ const MyEnrolledCourse = () => {
                                             </span>
                                         </div>
                                     )}
-
                                     {/* Course Stats */}
                                     <div className="grid grid-cols-2 gap-3 mb-4">
                                         <div className="flex items-center gap-2 text-gray-600 bg-gray-50 rounded-lg p-2">

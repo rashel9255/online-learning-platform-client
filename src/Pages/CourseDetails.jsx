@@ -40,6 +40,7 @@ export default function CourseDetails() {
             instructor: course.instructor,
             thumbnail: course.thumbnail,
             price: course.price,
+            duration: course.duration,
         };
 
         axios
