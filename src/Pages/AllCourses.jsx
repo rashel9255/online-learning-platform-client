@@ -134,7 +134,7 @@ const AllCourses = () => {
                                     <span className="text-xs font-semibold text-blue-600 uppercase mb-2">{course.category}</span>
 
                                     {/* Title */}
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">{course.title}</h3>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 h-14">{course.title}</h3>
 
                                     {/* Description */}
                                     <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2 grow">{course.description}</p>

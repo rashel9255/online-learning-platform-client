@@ -47,6 +47,12 @@ const AddCourse = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Price validation
+        if (parseFloat(formData.price) > 99999999) {
+            toast.error("❌ Course price cannot exceed 99,999,999 ৳");
+            return;
+        }
+
         try {
             // 🧠 Instructor info from form data (auto-filled from Firebase)
             const instructorInfo = {
