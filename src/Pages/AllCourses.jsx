@@ -175,8 +175,8 @@ const AllCourses = () => {
                                     {/* Price */}
                                     <div className="flex items-center justify-between mt-auto pt-3 border-t">
                                         <div>
-                                            <span className="text-2xl font-bold text-gray-900">${course.price}</span>
-                                            {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 line-through">${course.originalPrice}</span>}
+                                            <span className="text-2xl font-bold text-gray-900">৳{course.price}</span>
+                                            {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 line-through">৳{course.originalPrice}</span>}
                                         </div>
                                         <Link to={`/courses/${course._id}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold">
                                             Details

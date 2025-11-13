@@ -13,6 +13,7 @@ export default function CourseDetails() {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [isEnrolled, setIsEnrolled] = useState(false);
+    const [isEnrolling, setIsEnrolling] = useState(false);
 
     const handleEnroll = () => {
         if (!user) {
@@ -22,6 +23,14 @@ export default function CourseDetails() {
         }
 
         if (!course) return;
+
+        // Prevent multiple enrollments
+        if (isEnrolled || isEnrolling) {
+            toast.info("You are already enrolled in this course or enrollment is in progress.");
+            return;
+        }
+
+        setIsEnrolling(true);
 
         const newEnrollment = {
             courseId: course._id || id,
@@ -39,6 +48,10 @@ export default function CourseDetails() {
                 if (res.data.insertedId || res.status === 201) {
                     toast.success("Successfully enrolled in the course!");
                     setIsEnrolled(true);
+                } else if (res.data.message) {
+                    // Handle duplicate enrollment message from server
+                    toast.info(res.data.message);
+                    setIsEnrolled(true);
                 } else {
                     // Some backends may return the new resource directly
                     setIsEnrolled(true);
@@ -47,7 +60,15 @@ export default function CourseDetails() {
             })
             .catch((err) => {
                 console.error("Error enrolling in course:", err);
-                toast.error("Failed to enroll in the course.");
+                if (err.response?.data?.message) {
+                    toast.info(err.response.data.message);
+                    setIsEnrolled(true);
+                } else {
+                    toast.error("Failed to enroll in the course.");
+                }
+            })
+            .finally(() => {
+                setIsEnrolling(false);
             });
     };
 
@@ -70,9 +91,10 @@ export default function CourseDetails() {
     // check whether current user already enrolled
     useEffect(() => {
         if (!user || !id) return;
-        // backend expected to support query by userId and courseId
+        // backend expected to support query by userId/userEmail and courseId
+        const queryParam = user.uid ? `userId=${user.uid}&courseId=${id}` : `userEmail=${user.email}&courseId=${id}`;
         axios
-            .get(`http://localhost:3000/enrolled-courses?userId=${user.uid}&courseId=${id}`)
+            .get(`http://localhost:3000/enrolled-courses?${queryParam}`)
             .then((res) => {
                 // if the endpoint returns an array of enrollments
                 if (Array.isArray(res.data) && res.data.length > 0) {
@@ -171,9 +193,23 @@ export default function CourseDetails() {
                         </div>
 
                         <div className="flex gap-3 mt-6">
-                            <button onClick={handleEnroll} className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
-                                Enroll Now
-                            </button>
+                            {isEnrolled ? (
+                                <button disabled className="bg-gray-400 text-white px-4 py-2 rounded-lg cursor-not-allowed">
+                                    Already Enrolled
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleEnroll}
+                                    disabled={isEnrolling}
+                                    className={`${
+                                        isEnrolling
+                                            ? "bg-gray-400 cursor-not-allowed"
+                                            : "bg-green-600 hover:bg-green-700"
+                                    } text-white px-4 py-2 rounded-lg transition-colors`}
+                                >
+                                    {isEnrolling ? "Enrolling..." : "Enroll Now"}
+                                </button>
+                            )}
                             <Link to="/courses" className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">
                                 Back
                             </Link>

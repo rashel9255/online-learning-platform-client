@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
-import { BookOpen, Users, Clock, DollarSign, Star, Trash2, Edit, TrendingUp, Eye } from "lucide-react";
+import { BookOpen, Users, Clock, Trash2, Edit, TrendingUp, Eye } from "lucide-react";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
@@ -183,7 +184,7 @@ const MyCourses = () => {
                                         {/* Price and Edit/Delete Actions */}
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-baseline gap-1">
-                                                <DollarSign className="h-5 w-5 text-green-600" />
+                                                <FaBangladeshiTakaSign className="h-5 w-5 text-green-600" />
                                                 <span className="text-3xl font-bold text-gray-900">{course.price || "0"}</span>
                                             </div>
 
