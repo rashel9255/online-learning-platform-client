@@ -111,21 +111,21 @@ export default function CourseDetails() {
 
     if (loading)
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading course details...</p>
+                    <p className="mt-4 text-gray-600 dark:text-gray-300">Loading course details...</p>
                 </div>
             </div>
         );
 
     if (error)
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-                <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-md w-full text-center">
                     <div className="text-red-500 text-5xl mb-4">⚠️</div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Oops!</h2>
-                    <p className="text-gray-600 mb-4">{error}</p>
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Oops!</h2>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
                     <Link to="/courses" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
                         Back to Courses
                     </Link>
@@ -134,42 +134,42 @@ export default function CourseDetails() {
         );
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
             <ToastContainer />
-            <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
                 <div>
-                    <div className=" bg-gray-100 flex items-center justify-center p-6">
+                    <div className="bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-6">
                         <img src={course.thumbnail} alt={course.title} className="w-full h-60vh object-cover rounded" />
                     </div>
                     <div className="p-6">
-                        <h1 className="text-2xl font-bold text-gray-900 mb-2">{course.title}</h1>
-                        <p className="text-gray-600 mb-4">{course.description}</p>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{course.title}</h1>
+                        <p className="text-gray-600 dark:text-gray-300 mb-4">{course.description}</p>
 
                         <div className="flex items-center gap-4 mb-4">
                             <div>
-                                <div className="text-sm text-gray-500">Instructor</div>
-                                <div className="font-semibold text-gray-800">{course.instructor?.name}</div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">Instructor</div>
+                                <div className="font-semibold text-gray-800 dark:text-gray-200">{course.instructor?.name}</div>
                             </div>
                             <div>
-                                <div className="text-sm text-gray-500">Level</div>
-                                <div className="font-semibold text-gray-800">{course.level}</div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">Level</div>
+                                <div className="font-semibold text-gray-800 dark:text-gray-200">{course.level}</div>
                             </div>
                             <div>
-                                <div className="text-sm text-gray-500">Duration</div>
-                                <div className="font-semibold text-gray-800">{course.duration}</div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">Duration</div>
+                                <div className="font-semibold text-gray-800 dark:text-gray-200">{course.duration}</div>
                             </div>
                         </div>
 
                         <div className="mb-4">
-                            <div className="text-sm text-gray-500">Price</div>
-                            <div className="text-2xl font-bold text-gray-900">
-                                ${course.price} <span className="text-sm text-gray-500 line-through">{course.originalPrice > course.price ? `$${course.originalPrice}` : ""}</span>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">Price</div>
+                            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                                ${course.price} <span className="text-sm text-gray-500 dark:text-gray-400 line-through">{course.originalPrice > course.price ? `$${course.originalPrice}` : ""}</span>
                             </div>
                         </div>
 
                         <div className="mb-4">
-                            <h3 className="font-semibold text-gray-800">Objectives</h3>
-                            <ul className="list-disc list-inside text-gray-600 mt-2">
+                            <h3 className="font-semibold text-gray-800 dark:text-white">Objectives</h3>
+                            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mt-2">
                                 {course.objectives?.map((obj, idx) => (
                                     <li key={idx}>{obj}</li>
                                 ))}
@@ -177,8 +177,8 @@ export default function CourseDetails() {
                         </div>
 
                         <div className="mb-4">
-                            <h3 className="font-semibold text-gray-800">Requirements</h3>
-                            <ul className="list-disc list-inside text-gray-600 mt-2">
+                            <h3 className="font-semibold text-gray-800 dark:text-white">Requirements</h3>
+                            <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mt-2">
                                 {course.requirements?.map((req, idx) => (
                                     <li key={idx}>{req}</li>
                                 ))}
@@ -186,8 +186,8 @@ export default function CourseDetails() {
                         </div>
 
                         <div className="mb-4">
-                            <h3 className="font-semibold text-gray-800">Curriculum</h3>
-                            <div className="text-gray-600 mt-2">
+                            <h3 className="font-semibold text-gray-800 dark:text-white">Curriculum</h3>
+                            <div className="text-gray-600 dark:text-gray-300 mt-2">
                                 Sections: {course.curriculum?.sections} • Lectures: {course.curriculum?.lectures} • Total: {course.curriculum?.totalDuration}
                             </div>
                         </div>
@@ -210,7 +210,7 @@ export default function CourseDetails() {
                                     {isEnrolling ? "Enrolling..." : "Enroll Now"}
                                 </button>
                             )}
-                            <Link to="/courses" className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">
+                            <Link to="/courses" className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600">
                                 Back
                             </Link>
                         </div>

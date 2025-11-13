@@ -68,24 +68,24 @@ const MyEnrolledCourse = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
+            <div className="min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600 text-lg font-medium">Loading your enrolled courses...</p>
+                    <p className="mt-4 text-gray-600 dark:text-gray-300 text-lg font-medium">Loading your enrolled courses...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-linear-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <div className="mb-10">
                     <div className="flex items-center justify-between flex-wrap gap-4">
                         <div>
-                            <h1 className="text-4xl font-bold text-gray-900 mb-2">My Enrolled Courses</h1>
-                            <p className="text-lg text-gray-600">Continue learning from where you left off</p>
+                            <h1 className="text-4xl font-bold text-primary-gradient  mb-2">My Enrolled Courses</h1>
+                            <p className="text-lg text-gray-500">Continue learning from where you left off</p>
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="bg-white px-6 py-3 rounded-xl shadow-md border-2 border-indigo-100">

@@ -42,10 +42,10 @@ const PopularCourse = () => {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
+            <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900">
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-                    <p className="mt-4 text-gray-600">Loading popular courses...</p>
+                    <p className="mt-4 text-gray-600 dark:text-gray-300">Loading popular courses...</p>
                 </motion.div>
             </div>
         );
@@ -53,10 +53,10 @@ const PopularCourse = () => {
 
     if (error) {
         return (
-            <div className="flex items-center justify-center min-h-screen p-4">
-                <motion.div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
-                    <h2 className="text-lg font-semibold text-red-900 mb-2">Error Loading Courses</h2>
-                    <p className="text-red-700 mb-4">{error}</p>
+            <div className="flex items-center justify-center min-h-screen p-4 bg-white dark:bg-gray-900">
+                <motion.div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6 max-w-md">
+                    <h2 className="text-lg font-semibold text-red-900 dark:text-red-300 mb-2">Error Loading Courses</h2>
+                    <p className="text-red-700 dark:text-red-400 mb-4">{error}</p>
                     <button onClick={fetchPopularCourses} className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700">
                         Try Again
                     </button>
@@ -66,11 +66,11 @@ const PopularCourse = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <motion.div className="mb-12 text-center" initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Popular Courses</h1>
-                    <p className="text-lg text-gray-600">Explore all of our popular courses</p>
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">Popular Courses</h1>
+                    <p className="text-lg text-gray-600 dark:text-gray-300">Explore all of our popular courses</p>
                     <motion.div
                         className="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded-full"
                         initial={{ width: 0 }}
@@ -84,7 +84,7 @@ const PopularCourse = () => {
                     {courses.map((course, index) => (
                         <motion.div
                             key={course._id || index}
-                            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full"
+                            className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden flex flex-col h-full"
                             variants={cardVariants}
                             whileHover={{ y: -8, scale: 1.01 }}
                             transition={{ duration: 0.25 }}
@@ -125,20 +125,20 @@ const PopularCourse = () => {
                             </div>
 
                             <div className="p-6 flex flex-col grow">
-                                <h3 className="text-xl font-semibold mb-2 h-14 line-clamp-2">{course.title}</h3>
-                                <p className="text-gray-600 text-sm mb-4 h-20 line-clamp-3">{course.description}</p>
+                                <h3 className="text-xl font-semibold mb-2 h-14 line-clamp-2 text-gray-900 dark:text-gray-100">{course.title}</h3>
+                                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 h-20 line-clamp-3">{course.description}</p>
 
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-sm text-gray-600">{course.studentsEnrolled?.toLocaleString() || 0} students enrolled</span>
-                                    {course.rating && <span className="text-sm text-yellow-500">⭐ {course.rating}</span>}
+                                    <span className="text-sm text-gray-600 dark:text-gray-300">{course.studentsEnrolled?.toLocaleString() || 0} students enrolled</span>
+                                    {course.rating && <span className="text-sm text-yellow-400">⭐ {course.rating}</span>}
                                 </div>
 
-                                {course.instructor && <p className="text-sm text-gray-600 mb-4">By {course.instructor.name}</p>}
+                                {course.instructor && <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">By {course.instructor.name}</p>}
 
                                 <div className="flex items-center justify-between mt-auto pt-3 border-t">
                                     <div>
-                                        <span className="text-2xl font-bold text-gray-900">৳{course.price}</span>
-                                        {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 line-through">৳{course.originalPrice}</span>}
+                                        <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">৳{course.price}</span>
+                                        {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">৳{course.originalPrice}</span>}
                                     </div>
                                     <Link to={`/courses/${course._id}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold">
                                         Details
@@ -151,7 +151,7 @@ const PopularCourse = () => {
 
                 {courses.length === 0 && (
                     <div className="text-center py-12">
-                        <p className="text-gray-600">No popular courses found</p>
+                        <p className="text-gray-600 dark:text-gray-300">No popular courses found</p>
                     </div>
                 )}
             </div>

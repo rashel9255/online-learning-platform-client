@@ -107,8 +107,8 @@ const AddCourse = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-50 via-white to-sky-100 py-10 px-4">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-50 via-white to-sky-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 py-10 px-4">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 w-full max-w-2xl">
                 <h2 className="text-2xl md:text-3xl font-bold text-center text-primary-gradient mb-6">Add New Course</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -127,7 +127,7 @@ const AddCourse = () => {
                                     value={formData.instructorName}
                                     onChange={handleChange}
                                     placeholder="Your name"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none dark:text-black bg-white"
                                     readOnly
                                 />
                             </div>
@@ -141,7 +141,7 @@ const AddCourse = () => {
                                     value={formData.instructorEmail}
                                     onChange={handleChange}
                                     placeholder="your@email.com"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none dark:text-black bg-white"
                                     readOnly
                                 />
                             </div>
@@ -154,7 +154,7 @@ const AddCourse = () => {
                                     value={formData.instructorPhoto}
                                     onChange={handleChange}
                                     placeholder="https://example.com/photo.jpg"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none dark:text-black bg-white"
                                     readOnly
                                 />
                             </div>
@@ -162,7 +162,7 @@ const AddCourse = () => {
                     </div>
                     {/* Title */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Course Title</label>
+                        <label className="block text-gray-500 font-medium mb-1">Course Title</label>
                         <input
                             type="text"
                             name="title"
@@ -176,7 +176,7 @@ const AddCourse = () => {
 
                     {/* Image */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Image URL</label>
+                        <label className="block text-gray-500 font-medium mb-1">Image URL</label>
                         <input
                             type="url"
                             name="image"
@@ -191,7 +191,7 @@ const AddCourse = () => {
                     {/* Price & Duration */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-gray-700 font-medium mb-1">Price (৳)</label>
+                            <label className="block text-gray-500 font-medium mb-1">Price (৳)</label>
                             <input
                                 type="number"
                                 name="price"
@@ -204,7 +204,7 @@ const AddCourse = () => {
                         </div>
 
                         <div>
-                            <label className="block text-gray-700 font-medium mb-1">Duration</label>
+                            <label className="block text-gray-500 font-medium mb-1">Duration</label>
                             <input
                                 type="text"
                                 name="duration"
@@ -219,12 +219,12 @@ const AddCourse = () => {
 
                     {/* Category */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Category</label>
+                        <label className="block text-gray-500 font-medium mb-1">Category</label>
                         <select
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none bg-white dark:text-black"
                             required
                         >
                             <option value="">Select a category</option>
@@ -242,7 +242,7 @@ const AddCourse = () => {
 
                     {/* Description */}
                     <div>
-                        <label className="block text-gray-700 font-medium mb-1">Description</label>
+                        <label className="block text-gray-500 font-medium mb-1">Description</label>
                         <textarea
                             name="description"
                             value={formData.description}
@@ -257,7 +257,7 @@ const AddCourse = () => {
                     {/* Featured */}
                     <div className="flex items-center gap-2">
                         <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="w-5 h-5 text-sky-500" />
-                        <label className="text-gray-700 font-medium">Featured Course</label>
+                        <label className="text-gray-500 font-medium">Featured Course</label>
                     </div>
 
                     {/* Submit Button */}

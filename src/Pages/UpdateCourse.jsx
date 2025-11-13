@@ -88,18 +88,18 @@ const UpdateCourse = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-50 via-white to-sky-100">
+            <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-50 via-white to-sky-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-sky-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600 text-lg font-medium">Loading course data...</p>
+                    <p className="mt-4 text-gray-600 dark:text-gray-300 text-lg font-medium">Loading course data...</p>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-50 via-white to-sky-100 py-10 px-4">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-sky-50 via-white to-sky-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 py-10 px-4">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 w-full max-w-2xl">
                 <h2 className="text-2xl md:text-3xl font-bold text-center text-primary-gradient mb-6">Update Course</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5">

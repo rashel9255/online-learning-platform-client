@@ -1,14 +1,12 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
-    themes: light --default;
+    themes: light --default, dark --prefersdark;
 }
 
-@plugin "daisyui/theme" {
-    name: "light";
-    default: true;
-    --color-primary: #632ee3;
-    --color-secondary: teal;
-}
+
+@variant dark (&:where(.dark, .dark *, [data-theme=dark], [data-theme=dark] *));
+
 
 .text-primary-gradient {
     background: linear-gradient(to right, #2563eb, #9333ea, #db2777);
@@ -16,10 +14,6 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
-}
-
-a.active {
-    @apply text-primary font-bold;
 }
 
 .btn-primary {

@@ -62,18 +62,18 @@ const AllCourses = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             {/* Header */}
-            <div className="bg-white text-center shadow-sm">
+            <div className="bg-white dark:bg-gray-800 text-center shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Explore Courses</h1>
-                    <p className="text-gray-600">Discover all amazing courses to boost your skills</p>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">Explore Courses</h1>
+                    <p className="text-gray-600 dark:text-gray-300">Discover all amazing courses to boost your skills</p>
                 </div>
             </div>
 
             {/* Filters and Search */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-6">
                     {/* Search Bar */}
                     <div className="mb-4">
                         <input
@@ -81,7 +81,7 @@ const AllCourses = () => {
                             placeholder="Search courses..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
                         />
                     </div>
 
@@ -91,7 +91,9 @@ const AllCourses = () => {
                             <button
                                 key={category}
                                 onClick={() => setFilter(category)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition ${filter === category ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                                    filter === category ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
+                                }`}
                             >
                                 {category === "all" ? "All Courses" : category}
                             </button>
@@ -100,7 +102,7 @@ const AllCourses = () => {
                 </div>
 
                 {/* Results Count */}
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                     Showing {filteredCourses.length} {filteredCourses.length === 1 ? "course" : "courses"}
                 </p>
 
@@ -108,13 +110,13 @@ const AllCourses = () => {
                 {filteredCourses.length === 0 ? (
                     <div className="text-center py-12">
                         <div className="text-6xl mb-4">📚</div>
-                        <h3 className="text-xl font-semibold text-gray-800 mb-2">No courses found</h3>
-                        <p className="text-gray-600">Try adjusting your search or filter criteria</p>
+                        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">No courses found</h3>
+                        <p className="text-gray-600 dark:text-gray-300">Try adjusting your search or filter criteria</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredCourses.map((course) => (
-                            <div key={course._id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+                            <div key={course._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
                                 {/* Course Image */}
                                 <div className="relative h-48 flex items-center justify-center">
                                     <img src={course.thumbnail} alt="" className="h-full" />
@@ -128,14 +130,14 @@ const AllCourses = () => {
                                     <span className="text-xs font-semibold text-blue-600 uppercase mb-2">{course.category}</span>
 
                                     {/* Title */}
-                                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">{course.title}</h3>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">{course.title}</h3>
 
                                     {/* Description */}
-                                    <p className="text-sm text-gray-600 mb-3 line-clamp-2 grow">{course.description}</p>
+                                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2 grow">{course.description}</p>
 
                                     {/* Instructor */}
                                     <div className="flex items-center mb-3">
-                                        <span className="font-bold text-sm text-gray-700">Instructor: {course.instructor.name}</span>
+                                        <span className="font-bold text-sm text-gray-700 dark:text-gray-200">Instructor: {course.instructor.name}</span>
                                     </div>
 
                                     {/* Rating */}
@@ -148,11 +150,11 @@ const AllCourses = () => {
                                                 </span>
                                             ))}
                                         </div>
-                                        <span className="ml-2 text-xs text-gray-500">({(course.totalRatings || 0).toLocaleString()})</span>
+                                        <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">({(course.totalRatings || 0).toLocaleString()})</span>
                                     </div>
 
                                     {/* Stats */}
-                                    <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
+                                    <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-3">
                                         <span>👥 {(course.studentsEnrolled || 0).toLocaleString()} students</span>
                                         <span>⏱️ {course.duration}</span>
                                     </div>
@@ -162,10 +164,10 @@ const AllCourses = () => {
                                         <span
                                             className={`inline-block text-xs font-semibold px-2 py-1 rounded ${
                                                 course.level === "Beginner"
-                                                    ? "bg-green-100 text-green-800"
+                                                    ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
                                                     : course.level === "Intermediate"
-                                                    ? "bg-yellow-100 text-yellow-800"
-                                                    : "bg-red-100 text-red-800"
+                                                    ? "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200"
+                                                    : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200"
                                             }`}
                                         >
                                             {course.level}
@@ -173,10 +175,10 @@ const AllCourses = () => {
                                     </div>
 
                                     {/* Price */}
-                                    <div className="flex items-center justify-between mt-auto pt-3 border-t">
+                                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-200 dark:border-gray-700">
                                         <div>
-                                            <span className="text-2xl font-bold text-gray-900">৳{course.price}</span>
-                                            {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 line-through">৳{course.originalPrice}</span>}
+                                            <span className="text-2xl font-bold text-gray-900 dark:text-white">৳{course.price}</span>
+                                            {course.originalPrice > course.price && <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">৳{course.originalPrice}</span>}
                                         </div>
                                         <Link to={`/courses/${course._id}`} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-semibold">
                                             Details
@@ -190,6 +192,6 @@ const AllCourses = () => {
             </div>
         </div>
     );
-}
+};
 
 export default AllCourses;
