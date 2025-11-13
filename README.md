@@ -1,16 +1,17 @@
-# React + Vite
+# PathShala360 - Online Learning Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the client-side application for **PathShala360**, a modern and feature-rich online learning platform built with React, Tailwind CSS, and Firebase.
 
-Currently, two official plugins are available:
+**Live Site URL:** [https://pathshala360-assignment.web.app/](https://pathshala360-assignment.web.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Website Features
 
-## React Compiler
+-   **Extensive Course Catalog:** Users can browse, search, and filter a diverse range of courses across multiple categories like Web Development, Data Science, and Digital Marketing.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   **Seamless User Authentication:** Secure and easy-to-use registration and login system for both students and instructors, complete with social login options for quick access.
 
-## Expanding the ESLint configuration
+-   **Personalized Dashboards:** Students can view and manage their enrolled courses, while instructors have a dedicated dashboard to add, update, and track the courses they have created.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-   **Full Course Management for Instructors:** Instructors have the autonomy to add new courses with detailed descriptions, update existing course information, and delete courses they no longer wish to offer.
+
+-   **Dynamic & Responsive User Experience:** The platform is fully responsive and looks great on all devices. It includes a dark/light theme toggle for a comfortable viewing experience and detailed course pages to help students make informed enrollment decisions.
