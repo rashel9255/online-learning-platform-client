@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
 import { BookOpen, Users, Clock, DollarSign, Star, Trash2, Edit, TrendingUp } from "lucide-react";
+import Swal from "sweetalert2";
 
 const MyCourses = () => {
     const { user } = useContext(AuthContext);
@@ -29,14 +30,39 @@ const MyCourses = () => {
     }, [user]);
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Are you sure you want to delete this course?")) return;
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This course will be permanently deleted!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel",
+            reverseButtons: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`http://localhost:3000/courses/${id}`);
+                    setCourses(courses.filter((course) => course._id !== id));
 
-        try {
-            await axios.delete(`http://localhost:3000/courses/${id}`);
-            setCourses(courses.filter((course) => course._id !== id));
-        } catch (err) {
-            alert("Failed to delete course",err);
-        }
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your course has been deleted successfully.",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                } catch (err) {
+                    Swal.fire({
+                        title: "Failed!",
+                        text: "Something went wrong while deleting the course.",
+                        icon: "error",
+                        confirmButtonText: "Try Again",
+                    });
+                }
+            }
+        });
     };
 
     if (loading) {
