@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import axios from "axios";
 
-export default function AllCourses() {
+const AllCourses = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -191,3 +191,5 @@ export default function AllCourses() {
         </div>
     );
 }
+
+export default AllCourses;
