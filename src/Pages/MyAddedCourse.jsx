@@ -1,11 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
-import { BookOpen, Users, Clock, DollarSign, Star, Trash2, Edit, TrendingUp } from "lucide-react";
+import { BookOpen, Users, Clock, DollarSign, Star, Trash2, Edit, TrendingUp, Eye } from "lucide-react";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const MyCourses = () => {
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -63,6 +65,10 @@ const MyCourses = () => {
                 }
             }
         });
+    };
+
+    const handleViewDetails = (id) => {
+        navigate(`/courses/${id}`);
     };
 
     if (loading) {
@@ -146,14 +152,10 @@ const MyCourses = () => {
                                 {/* Course Content */}
                                 <div className="p-5">
                                     {/* Title */}
-                                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors min-h-14">
-                                        {course.title || course.course_name}
-                                    </h3>
+                                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-indigo-600 transition-colors min-h-14">{course.title || course.course_name}</h3>
 
                                     {/* Description */}
                                     {course.description && <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>}
-
-                                    
 
                                     {/* Course Stats */}
                                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -168,27 +170,39 @@ const MyCourses = () => {
                                     </div>
 
                                     {/* Price and Actions */}
-                                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                                        <div className="flex items-baseline gap-1">
-                                            <DollarSign className="h-5 w-5 text-green-600" />
-                                            <span className="text-3xl font-bold text-gray-900">{course.price || "0"}</span>
-                                        </div>
+                                    <div className="space-y-3 pt-4 border-t border-gray-100">
+                                        {/* View Details Button */}
+                                        <button
+                                            onClick={() => handleViewDetails(course._id)}
+                                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 px-4 rounded-xl font-semibold transition-all hover:shadow-lg flex items-center justify-center gap-2"
+                                        >
+                                            <Eye className="h-5 w-5" />
+                                            View Details
+                                        </button>
 
-                                        <div className="flex gap-2">
-                                            <button
-                                                onClick={() => alert("Edit functionality - Course ID: " + course._id)}
-                                                className="p-2.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-all hover:scale-105 active:scale-95"
-                                                title="Edit course"
-                                            >
-                                                <Edit className="h-5 w-5" />
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(course._id)}
-                                                className="p-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-all hover:scale-105 active:scale-95"
-                                                title="Delete course"
-                                            >
-                                                <Trash2 className="h-5 w-5" />
-                                            </button>
+                                        {/* Price and Edit/Delete Actions */}
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-baseline gap-1">
+                                                <DollarSign className="h-5 w-5 text-green-600" />
+                                                <span className="text-3xl font-bold text-gray-900">{course.price || "0"}</span>
+                                            </div>
+
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => alert("Edit functionality - Course ID: " + course._id)}
+                                                    className="p-2.5 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-all hover:scale-105 active:scale-95"
+                                                    title="Edit course"
+                                                >
+                                                    <Edit className="h-5 w-5" />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(course._id)}
+                                                    className="p-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-all hover:scale-105 active:scale-95"
+                                                    title="Delete course"
+                                                >
+                                                    <Trash2 className="h-5 w-5" />
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
